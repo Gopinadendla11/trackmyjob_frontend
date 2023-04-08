@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import BannerImg from "../images/banner image.png";
 import { AiFillEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { AuthServiceLogin } from "../services/AuthService";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  const onLoginSubmit = () => {};
+  const onLoginSubmit = (event) => {
+    event.preventDefault();
+    AuthServiceLogin(email, password);
+  };
 
   return (
     <div className="h-screen w-screen bg-indigo-400 flex justify-center items-center px-24 py-16">
@@ -59,13 +63,12 @@ const Login = () => {
               </div>
             </div>
 
-            <button
+            <input
               className="px-6 py-2 my-5 rounded-xl border-solid border-2  bg-primary text-white"
-              type="button"
+              type="submit"
+              value="Login"
               onClick={onLoginSubmit}
-            >
-              Login
-            </button>
+            ></input>
 
             <div className="flex">
               <p>Don't Have an Account ? </p> &nbsp;

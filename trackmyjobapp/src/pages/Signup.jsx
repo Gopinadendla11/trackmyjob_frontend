@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import BannerImg from "../images/banner image.png";
+import { AuthServiceRegister } from "../services/AuthService";
 
 import { AiFillEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
@@ -8,6 +9,11 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  const onRegister = (event) => {
+    event.preventDefault();
+    AuthServiceRegister(name, email, password);
+  };
 
   return (
     <div className="h-screen w-screen bg-indigo-400 flex justify-center items-center px-24 py-16">
@@ -67,11 +73,14 @@ const Signup = () => {
                 ></AiFillEye>
               )}
             </div>
-            <button className="px-6 py-2 my-5 rounded-xl border-solid border-2  bg-primary text-white ">
-              Signup
-            </button>
+            <input
+              className="px-6 py-2 my-5 rounded-xl border-solid border-2  bg-primary text-white"
+              type="submit"
+              value="Signup"
+              onClick={onRegister}
+            ></input>
           </form>
-          <a className="font-bold text-primary" href="/login">
+          <a className="font-bold text-primary" href="/">
             Click Here to Login
           </a>
         </div>
