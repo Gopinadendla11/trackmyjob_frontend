@@ -1,7 +1,8 @@
 import React from "react";
+import { Logout } from "../services/AuthService";
 
 const Dashboard = () => {
-  return <div>Dashboard</div>;
+  return <button onClick={Logout}>Logout</button>;
 };
 
 export default Dashboard;

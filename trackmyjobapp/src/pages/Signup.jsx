@@ -10,9 +10,11 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  const onRegister = (event) => {
+  const onRegister = async (event) => {
     event.preventDefault();
-    AuthServiceRegister(name, email, password);
+    const response = await AuthServiceRegister(name, email, password);
+    if (response.status === 200) window.location.href = "/";
+    //else setErrorMsg("Error Please try again.");
   };
 
   return (

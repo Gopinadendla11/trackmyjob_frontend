@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import Login from "./pages/Login";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
+import ErrorPage from "./pages/ErrorPage";
+import RequireAuth from "./pages/RequireAuth";
 
 const App = () => {
-  const [isLoggedin, setIsLoggedIn] = useState(false);
-
   return (
     <div className="App font-Poppins">
       <BrowserRouter>
@@ -14,9 +14,17 @@ const App = () => {
           <Route
             path="/"
             exact
-            Component={isLoggedin ? Dashboard : Login}
+            element={
+              <RequireAuth>
+                <Dashboard />
+              </RequireAuth>
+            }
           ></Route>
+          <Route path="/login" exact Component={Login}></Route>
           <Route path="/signup" exact Component={Signup}></Route>
+
+          <Route path="/404" exact Component={ErrorPage}></Route>
+          <Route path="*" element={<Navigate replace to="/404" />} />
         </Routes>
       </BrowserRouter>
     </div>

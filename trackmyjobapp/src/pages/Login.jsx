@@ -7,10 +7,17 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [errorMessage, setErrorMsg] = useState("");
 
-  const onLoginSubmit = (event) => {
+  const onLoginSubmit = async (event) => {
     event.preventDefault();
-    AuthServiceLogin(email, password);
+    const response = await AuthServiceLogin(email, password);
+
+    if (response.status === 200) {
+      window.location.href = "/";
+    } else if (response.status === 404)
+      setErrorMsg("Incorrect Email or Password");
+    else setErrorMsg("Error Please try again.");
   };
 
   return (
@@ -62,6 +69,8 @@ const Login = () => {
                 )}
               </div>
             </div>
+
+            <p className="text-[16px] text-red-700">{errorMessage}</p>
 
             <input
               className="px-6 py-2 my-5 rounded-xl border-solid border-2  bg-primary text-white"
