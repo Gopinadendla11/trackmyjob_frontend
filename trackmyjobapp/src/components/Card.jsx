@@ -1,8 +1,12 @@
 import React from "react";
 
-const Card = () => {
+const Card = (props) => {
   return (
-    <div className="w-full h-full rounded-lg bg-white drop-shadow-xl"></div>
+    <div
+      className={`rounded-lg p-8 bg-white drop-shadow-xl min-w-[300px] ${props.className}`}
+    >
+      {props.children}
+    </div>
   );
 };
 

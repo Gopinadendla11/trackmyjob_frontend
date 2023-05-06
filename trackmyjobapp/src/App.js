@@ -5,6 +5,7 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import ErrorPage from "./pages/ErrorPage";
 import RequireAuth from "./pages/RequireAuth";
+import NewApplication from "./pages/NewApplication";
 
 const App = () => {
   return (
@@ -22,6 +23,11 @@ const App = () => {
           ></Route>
           <Route path="/login" exact Component={Login}></Route>
           <Route path="/signup" exact Component={Signup}></Route>
+          <Route
+            path="/new-application"
+            exact
+            Component={NewApplication}
+          ></Route>
 
           <Route path="/404" exact Component={ErrorPage}></Route>
           <Route path="*" element={<Navigate replace to="/404" />} />
