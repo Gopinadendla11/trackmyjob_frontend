@@ -1,6 +1,6 @@
 import axios from "axios";
 import { isExpired, decodeToken } from "react-jwt";
-const AUTH_URL = "http://localhost:5000/api/auth";
+const AUTH_URL = `${process.env.REACT_APP_BASE_URL}/api/auth`;
 
 const LOCAL_STORAGE_TOKEN = "tmj_token";
 
