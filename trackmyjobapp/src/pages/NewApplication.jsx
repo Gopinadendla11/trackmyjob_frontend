@@ -1,21 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import AddNewApplication from "../services/DataService";
+import { Formik, Form, Field } from "formik";
+import { AddNewApplication } from "../services/DataService";
+import Snackbar from "@mui/material/Snackbar";
+import { Alert } from "@mui/material";
 
 const NewApplication = () => {
-  const onApplicationSubmit = async (event) => {
-    // const applicationData = {
-    //   companyName: event.companyName,
-    //   jobRole: event.jobRole,
-    //   JobDesc: event.JobDesc,
-    //   jobPortal: event.jobPortal,
-    //   jobLink: event.jobLink,
-    //   refDetails: event.refDetails,
-    //   notes: event.notes,
-    // };
-    const response = await AddNewApplication(event);
-    event.preventDefault();
+  const [alert, setAlert] = useState(false);
+  const [alertMsg, setAlertMsg] = useState("");
+  const [sev, setSev] = useState("error");
+  const handleClose = () => {
+    setAlert(false);
+  };
+
+  const onFormSubmit = async (values, { setSubmitting, resetForm }) => {
+    setSubmitting(true);
+    const response = await AddNewApplication(values);
+    if (response.status === 200) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      setAlert(true);
+      setSev("success");
+      resetForm();
+    } else {
+      setSev("error");
+    }
+    setAlert(true);
+    setAlertMsg(response.data);
   };
 
   return (
@@ -24,30 +34,30 @@ const NewApplication = () => {
         <Sidebar />
       </div>
       <div className="p-12 basis-5/6">
+        <Snackbar
+          open={alert}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          autoHideDuration={6000}
+          onClose={handleClose}
+        >
+          <Alert onClose={handleClose} severity={sev} sx={{ width: "100%" }}>
+            {alertMsg}
+          </Alert>
+        </Snackbar>
         <Formik
           initialValues={{
             companyName: "",
             jobRole: "",
-            JobDesc: "",
+            jobDesc: "",
             jobPortal: "",
             jobLink: "",
             refDetails: "",
             notes: "",
           }}
-          onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              onApplicationSubmit(values);
-              console.log(values);
-              setSubmitting(false);
-            }, 400);
-          }}
+          onSubmit={onFormSubmit}
+          // onSubmit={(values, { resetForm }) => AddNewApplication(values)}
         >
-          <Form
-            className="flex flex-col w-full items-center"
-            action="/"
-            method="POST"
-          >
+          <Form className="flex flex-col w-full items-center">
             <div className="w-3/4 my-2">
               <p className="text-8 font-bold">Company Name:</p>
               <Field
@@ -55,6 +65,7 @@ const NewApplication = () => {
                 type="text"
                 name="companyName"
                 placeholder="Enter the Company Name"
+                required="true"
               />
             </div>
 
@@ -98,18 +109,6 @@ const NewApplication = () => {
             </div>
 
             <div className="w-3/4 my-2">
-              <p className="text-8 font-bold">Job Description:</p>
-              <Field
-                component="textarea"
-                rows="6"
-                className="p-2 my-2 w-full border-solid border-2 border-gray-500 focus:outline-none focus:border-primary rounded-md"
-                type="text"
-                name="jobDesc"
-                placeholder="Enter job Description"
-              />
-            </div>
-
-            <div className="w-3/4 my-2">
               <p className="text-8 font-bold">Additional Notes:</p>
               <Field
                 component="textarea"
@@ -120,13 +119,23 @@ const NewApplication = () => {
                 placeholder="Enter any Notes here..."
               />
             </div>
-            <button
+
+            <div className="w-3/4 my-2">
+              <p className="text-8 font-bold">Job Description:</p>
+              <Field
+                component="textarea"
+                rows="6"
+                className="p-2 my-2 w-full border-solid border-2 border-gray-500 focus:outline-none focus:border-primary rounded-md"
+                type="text"
+                name="jobDesc"
+                placeholder="Enter job Description..."
+              />
+            </div>
+            <input
               type="submit"
               className="bg-primary text-white text-[18px] p-3 w-1/4 my-6 rounded-lg"
-              onClick={onApplicationSubmit}
-            >
-              Submit
-            </button>
+              // onClick={onApplicationSubmit}
+            ></input>
           </Form>
         </Formik>
       </div>

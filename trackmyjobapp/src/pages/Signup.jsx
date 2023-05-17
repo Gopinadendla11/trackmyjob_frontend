@@ -5,16 +5,24 @@ import { AuthServiceRegister } from "../services/AuthService";
 import { AiFillEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 const Signup = () => {
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [errorMessage, setErrorMsg] = useState("");
 
   const onRegister = async (event) => {
     event.preventDefault();
-    const response = await AuthServiceRegister(name, email, password);
+    const response = await AuthServiceRegister(
+      firstName,
+      lastName,
+      email,
+      password
+    );
+    console.log(response);
     if (response.status === 200) window.location.href = "/";
-    //else setErrorMsg("Error Please try again.");
+    else setErrorMsg(response.data);
   };
 
   return (
@@ -32,14 +40,25 @@ const Signup = () => {
           </p>
           <form>
             <div className="mt-8">
-              <p className="text-[16px] font-bold">Name</p>
+              <p className="text-[16px] font-bold">First Name</p>
               <input
-                placeholder="Enter Your Full Name"
+                placeholder="Enter Your First Name"
                 className="w-2/3 p-3 my-3 rounded-md border-[2px] border-solid border-primary"
                 type="name"
                 required
-                value={name}
-                onChange={(event) => setName(event.target.value)}
+                value={firstName}
+                onChange={(event) => setFirstName(event.target.value)}
+              ></input>
+            </div>
+            <div>
+              <p className="text-[16px] font-bold">Last Name</p>
+              <input
+                placeholder="Enter Your Last Name"
+                className="w-2/3 p-3 my-3 rounded-md border-[2px] border-solid border-primary"
+                type="name"
+                required
+                value={lastName}
+                onChange={(event) => setLastName(event.target.value)}
               ></input>
             </div>
             <div className="">
@@ -75,6 +94,7 @@ const Signup = () => {
                 ></AiFillEye>
               )}
             </div>
+            <p className="text-[16px] text-red-700">{errorMessage}</p>
             <input
               className="px-6 py-2 my-5 rounded-xl border-solid border-2  bg-primary text-white"
               type="submit"

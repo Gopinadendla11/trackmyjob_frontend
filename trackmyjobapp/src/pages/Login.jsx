@@ -15,9 +15,7 @@ const Login = () => {
 
     if (response.status === 200) {
       window.location.href = "/";
-    } else if (response.status === 404)
-      setErrorMsg("Incorrect Email or Password");
-    else setErrorMsg("Error Please try again.");
+    } else setErrorMsg(response.data);
   };
 
   return (

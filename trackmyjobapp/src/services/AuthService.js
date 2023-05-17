@@ -7,22 +7,33 @@ const LOCAL_STORAGE_TOKEN = "tmj_token";
 export const AuthServiceLogin = async (email, password) => {
   const response = await axios
     .post(`${AUTH_URL}/login`, { email: email, password: password })
-    .catch((err) => {
-      return err.toJSON();
-    });
+    .catch((error) => error.response);
 
-  if (response !== undefined && response.data)
-    localStorage.setItem(LOCAL_STORAGE_TOKEN, response.data);
+  if (response !== undefined && response.status === 200)
+    localStorage.setItem(LOCAL_STORAGE_TOKEN, response.data.token);
+
   return response;
 };
 
-export const AuthServiceRegister = async (name, email, password) => {
-  const user = { name: name, email: email, password: password };
+export const AuthServiceRegister = async (
+  first_name,
+  last_name,
+  email,
+  password
+) => {
+  const user = {
+    first_name: first_name,
+    last_name: last_name,
+    email: email,
+    password: password,
+  };
   const response = await axios
     .post(`${AUTH_URL}/register`, user)
-    .catch(console.error());
-  if (response !== undefined && response.data)
-    localStorage.setItem(LOCAL_STORAGE_TOKEN, response.data);
+    .catch((error) => error.response);
+
+  if (response !== undefined && response.status === 200)
+    localStorage.setItem(LOCAL_STORAGE_TOKEN, response.data.token);
+
   return response;
 };
 
