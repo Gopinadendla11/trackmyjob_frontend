@@ -1,5 +1,6 @@
 import axios from "axios";
-const URL = `${process.env.REACT_APP_BASE_URL}/api/applications`;
+import { BASE_API_URL } from "../env.js";
+const URL = `${BASE_API_URL}/api/applications`;
 
 const LOCAL_STORAGE_TOKEN = "tmj_token";
 

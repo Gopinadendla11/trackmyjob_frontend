@@ -11,7 +11,7 @@ const Login = () => {
 
   const onLoginSubmit = async (event) => {
     console.log("OnLoginSubmit event called");
-    //event.preventDefault();
+    event.preventDefault();
     const response = await AuthServiceLogin(email, password);
 
     if (response.status === 200) {
