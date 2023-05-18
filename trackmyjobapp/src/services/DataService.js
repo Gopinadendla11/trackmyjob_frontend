@@ -1,5 +1,6 @@
 import axios from "axios";
-const URL = "http://localhost:5000/api/applications";
+import { BASE_API_URL } from "../env.js";
+const URL = `${BASE_API_URL}/api/applications`;
 
 const LOCAL_STORAGE_TOKEN = "tmj_token";
 

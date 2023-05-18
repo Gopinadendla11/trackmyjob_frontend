@@ -10,6 +10,7 @@ const Login = () => {
   const [errorMessage, setErrorMsg] = useState("");
 
   const onLoginSubmit = async (event) => {
+    console.log("OnLoginSubmit event called");
     event.preventDefault();
     const response = await AuthServiceLogin(email, password);
 

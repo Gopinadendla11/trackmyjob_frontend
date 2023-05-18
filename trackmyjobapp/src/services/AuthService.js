@@ -1,14 +1,18 @@
 import axios from "axios";
 import { isExpired, decodeToken } from "react-jwt";
-const AUTH_URL = "http://localhost:5000/api/auth";
+import { BASE_API_URL } from "../env.js";
+const AUTH_URL = `${BASE_API_URL}/api/auth`;
 
 const LOCAL_STORAGE_TOKEN = "tmj_token";
 
 export const AuthServiceLogin = async (email, password) => {
+  console.log("Auth Service login called");
+  console.log("Base Url", AUTH_URL);
   const response = await axios
     .post(`${AUTH_URL}/login`, { email: email, password: password })
     .catch((error) => error.response);
 
+  console.log(response);
   if (response !== undefined && response.status === 200)
     localStorage.setItem(LOCAL_STORAGE_TOKEN, response.data.token);
 
