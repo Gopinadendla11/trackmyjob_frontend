@@ -6,6 +6,8 @@ import Dashboard from "./pages/Dashboard";
 import ErrorPage from "./pages/ErrorPage";
 import RequireAuth from "./pages/RequireAuth";
 import NewApplication from "./pages/NewApplication";
+import { Applications } from "./pages/Applications";
+import { Profile } from "./pages/Profile";
 
 const App = () => {
   return (
@@ -28,6 +30,8 @@ const App = () => {
             exact
             Component={NewApplication}
           ></Route>
+          <Route path="/applications" exact Component={Applications}></Route>
+          <Route path="/profile" exact Component={Profile}></Route>
 
           <Route path="/404" exact Component={ErrorPage}></Route>
           <Route path="*" element={<Navigate replace to="/404" />} />

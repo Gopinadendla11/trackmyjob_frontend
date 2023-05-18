@@ -14,3 +14,14 @@ export const AddNewApplication = async (applicationData) => {
 
   return response;
 };
+
+export const GetApplications = async () => {
+  var config = {
+    headers: { "x-jwt-token": localStorage.getItem(LOCAL_STORAGE_TOKEN) },
+  };
+  const response = await axios
+    .get(`${URL}/`, config)
+    .catch((error) => error.response);
+
+  return response.data;
+};
