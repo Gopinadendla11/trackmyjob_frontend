@@ -26,24 +26,24 @@ const Signup = () => {
   };
 
   return (
-    <div className="h-screen w-screen bg-indigo-400 flex justify-center items-center px-24 py-16">
+    <div className="h-screen w-screen bg-indigo-400 flex justify-center items-center lg:px-24 lg:py-16 sm:px-4 sm:py-4">
       <div className="w-full h-full rounded-lg bg-white drop-shadow-xl flex">
-        <div className="basis-3/5 p-8 flex flex-col items-center justify-start content-center">
+        <div className="hidden lg:block lg:basis-3/5 lg:p-8 lg:flex lg:flex-col lg:items-center lg:justify-start lg:content-center">
           <img className=" w-3/5 h-auto " src={BannerImg} alt="banner"></img>
         </div>
-        <div className="basis-2/5 p-12 pt-16">
-          <p className="text-[24px] font-bold mt-8">
+        <div className="lg:basis-2/5 p-6 pt-6 ">
+          <p className="text-[20px] font-bold mt-8">
             Welcome to TrackMyJob !!!
           </p>
-          <p className="text-[14px] text-gray-400 mt-2">
+          <p className="text-[14px] text-gray-400 lg:mt-2">
             Register Your Account here.
           </p>
           <form>
-            <div className="mt-8">
+            <div className="mt-4 ">
               <p className="text-[16px] font-bold">First Name</p>
               <input
                 placeholder="Enter Your First Name"
-                className="w-2/3 p-3 my-3 rounded-md border-[2px] border-solid border-primary"
+                className="w-full lg:w-2/3 p-2 my-3 rounded-md border-[2px] border-solid border-primary"
                 type="name"
                 required
                 value={firstName}
@@ -54,7 +54,7 @@ const Signup = () => {
               <p className="text-[16px] font-bold">Last Name</p>
               <input
                 placeholder="Enter Your Last Name"
-                className="w-2/3 p-3 my-3 rounded-md border-[2px] border-solid border-primary"
+                className="w-full lg:w-2/3 p-2 my-3 rounded-md border-[2px] border-solid border-primary"
                 type="name"
                 required
                 value={lastName}
@@ -65,7 +65,7 @@ const Signup = () => {
               <p className="text-[16px] font-bold">Email</p>
               <input
                 placeholder="Enter Your Email"
-                className="w-2/3 p-3 my-3 rounded-md border-[2px] border-solid border-primary"
+                className="w-full lg:w-2/3 p-2 my-3 rounded-md border-[2px] border-solid border-primary"
                 type="email"
                 required
                 value={email}
@@ -73,9 +73,9 @@ const Signup = () => {
               ></input>
             </div>
             <p className="text-[16px] font-bold">Password</p>
-            <div className="relative w-2/3 my-3 ">
+            <div className="relative w-full lg:w-2/3 my-3 ">
               <input
-                className="p-3 w-full rounded-md border-[2px] border-solid border-primary"
+                className="p-2 w-full rounded-md border-[2px] border-solid border-primary"
                 placeholder="Your Password"
                 type={isPasswordVisible ? "text" : "password"}
                 onChange={(event) => setPassword(event.target.value)}

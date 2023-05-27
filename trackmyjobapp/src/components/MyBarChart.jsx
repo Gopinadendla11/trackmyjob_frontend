@@ -64,9 +64,9 @@ const data = [
 
 const MyBarChart = () => {
   return (
-    <div className="p-8">
+    <div className="p-4">
       <BarChart
-        width={800}
+        width={500}
         height={300}
         data={data}
         margin={{

@@ -4,11 +4,12 @@ export const Dropdown = (props) => {
   const [selectedOption, setSelectedOption] = React.useState("");
   const onDropDownChange = (e) => {
     setSelectedOption(e.target.value);
+    props.OnSelectionChange(e.target.value);
   };
   return (
     <div>
       <select
-        className=" p-3 my-3 rounded-md border-[2px] border-solid border-primary"
+        className=" w-full p-3 pr-3 my-3 rounded-md border-[2px] border-solid border-primary"
         placeholder="Status"
         id="options"
         value={selectedOption}

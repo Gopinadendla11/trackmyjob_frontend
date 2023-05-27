@@ -20,12 +20,16 @@ const Login = () => {
   };
 
   return (
-    <div className="h-screen w-screen bg-indigo-400 flex justify-center items-center px-24 py-16">
+    <div className="h-screen w-screen bg-indigo-400 flex justify-center items-center lg:px-24 lg:py-16 sm:px-4 sm:py-4">
       <div className="w-full h-full rounded-lg bg-white drop-shadow-xl flex">
-        <div className="basis-3/5 p-8 flex flex-col items-center justify-start content-center">
-          <img className=" w-3/5 h-auto " src={BannerImg} alt="banner"></img>
+        <div className="lg:basis-3/5 p-8 hidden lg:block lg:flex lg:flex-col lg:items-center lg:justify-start lg:content-center">
+          <img
+            className=" lg:w-3/5 lg:h-auto "
+            src={BannerImg}
+            alt="banner"
+          ></img>
         </div>
-        <div className="basis-2/5 p-12 pt-16">
+        <div className="lg:basis-2/5 lg:p-12 p-6 pt-16">
           <p className="text-[24px] font-bold mt-8">
             Welcome to TrackMyJob !!!
           </p>
@@ -33,11 +37,11 @@ const Login = () => {
             Login into your Account
           </p>
           <form>
-            <div className="mt-16">
+            <div className=" mt-8 lg:mt-16">
               <p className="text-[16px] font-bold">Email</p>
               <input
                 placeholder="Enter Your Email"
-                className="w-2/3 p-3 my-3 rounded-md border-[2px] border-solid border-primary"
+                className="w-full lg:w-2/3 p-3 my-3 rounded-md border-[2px] border-solid border-primary"
                 type="email"
                 required
                 value={email}
@@ -46,7 +50,7 @@ const Login = () => {
             </div>
             <div className="mt-3">
               <p className="text-[16px] font-bold">Password</p>
-              <div className="relative w-2/3 my-3 ">
+              <div className="w-full relative lg:w-2/3 my-3 ">
                 <input
                   className="p-3 w-full rounded-md border-[2px] border-solid border-primary"
                   placeholder="Your Password"
