@@ -83,12 +83,34 @@ const MyBarChart = () => {
   };
 
   return (
+<<<<<<< HEAD
     <div className="pt-6">
       <ReactApexChart
         options={chartData}
         series={chartData.series}
         height="400px"
       />
+=======
+    <div className="p-4">
+      <BarChart
+        width={500}
+        height={300}
+        data={data}
+        margin={{
+          top: 5,
+          right: 30,
+          left: 20,
+          bottom: 5,
+        }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="date" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Bar dataKey="number" fill="#8884d8" />
+      </BarChart>
+>>>>>>> 443550032a219c737e56402a57a54c88c0bdf63c
     </div>
   );
 };
