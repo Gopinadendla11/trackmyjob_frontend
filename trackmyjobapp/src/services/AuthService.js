@@ -6,7 +6,7 @@ const AUTH_URL = `${BASE_API_URL}/api/auth`;
 const LOCAL_STORAGE_TOKEN = "tmj_token";
 
 export const AuthServiceLogin = async (email, password) => {
-  console.log("Base Url", AUTH_URL);
+  //console.log("Base Url", AUTH_URL);
   const response = await axios
     .post(`${AUTH_URL}/login`, { email: email, password: password })
     .catch((error) => error.response);
@@ -42,7 +42,6 @@ export const AuthServiceRegister = async (
 export const GetCurrentUser = () => {
   const token = localStorage.getItem(LOCAL_STORAGE_TOKEN);
   if (token && token !== undefined) {
-    console.log(token);
     const myDecodedToken = decodeToken(token);
     const isMyTokenExpired = isExpired(token);
 

@@ -7,12 +7,11 @@ import RejectedImg from "../images/file.png";
 import { GetUserData } from "../services/UserDataService";
 import MyBarChart from "../components/MyBarChart";
 import MyPieChart from "../components/MyPieChart";
-import { Navbar } from "../components/Navbar";
 import MenuIcon from "@mui/icons-material/Menu";
 import DashboardCard from "../components/DashboardCard";
 
 const Dashboard = () => {
-  const [showsidebar, setsidebar] = React.useState(true);
+  const [showsidebar, setsidebar] = useState(true);
 
   const toggleSideNav = () => {
     setsidebar((prev) => !prev);
@@ -42,35 +41,42 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="h-screen w-screen ">
-      <button className="h-4 lg:hidden" onClick={toggleSideNav}>
+    <div className="h-screen w-screen flex overflow-auto">
+      {/* <button className="h-4 lg:hidden" onClick={toggleSideNav}>
         <MenuIcon></MenuIcon>
       </button>
       <div className="flex">
-        <div className="hidden lg:block h-screen lg:basis-3/12">
-          <Sidebar />
-        </div>
         <div className="lg:hidden lg:basis-3/12">
           {showsidebar && <Sidebar />}
         </div>
-
+      </div> */}
+      <div className="h-screen basis-1/6">
+        <Sidebar />
+      </div>
       <div className="h-screen basis-5/6 bg-purple-50">
-        <p className="px-20 py-12 text-[36px] font-bold">
-          Welcome Gopi Krishna !!!
-        </p>
+        <p className="px-20 py-12 text-[36px] font-bold">Welcome {name}</p>
         {/* Dashboard Cards */}
         <div className="px-24 flex justify-between">
-          {cardsData.map((cardElement) => {
-            return (
-              <Card className="p-6 flex justify-between">
-                <div>
-                  <p className="text-[28px] font-bold">{cardElement.number}</p>
-                  <p>{cardElement.name}</p>
-                </div>
-                <img className="w-12 h-12" src={cardElement.image}></img>
-              </Card>
-            );
-          })}
+          <DashboardCard
+            name="Job Applications"
+            number={n_applied}
+            image={ApplicationsImg}
+          />
+          <DashboardCard
+            name="Online Assessments"
+            number={n_assessments}
+            image={OnlineAssessmentImg}
+          />
+          <DashboardCard
+            name="Interviews"
+            number={n_interviews}
+            image={InterviewImg}
+          />
+          <DashboardCard
+            name="Rejected"
+            number={n_rejected}
+            image={RejectedImg}
+          />
         </div>
 
         {/* Charts */}

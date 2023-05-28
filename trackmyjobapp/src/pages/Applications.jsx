@@ -2,14 +2,17 @@ import { Box } from "@mui/system";
 import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
-import { DeleteApplications, GetApplications } from "../services/DataService";
+import {
+  DeleteApplications,
+  GetApplications,
+  UpdateStatus,
+} from "../services/ApplicationService";
 import { DataGrid, GridCellEditStopReasons } from "@mui/x-data-grid";
 import { Dropdown } from "../components/Dropdown";
 import Button from "../components/Button";
 import Search from "../components/Search";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { Columns } from "./GridData";
-import { UpdateStatus } from "../services/DataService";
 import Snackbar from "@mui/material/Snackbar";
 import { Alert } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -43,20 +46,16 @@ export const Applications = () => {
   const searchClicked = () => {
     data = temp_data;
     console.log(status);
-    if (status != "") {
+    if (status !== "") {
       setData(data.filter((item) => item.status === status));
     }
-    if (searchQuery != "") {
+    if (searchQuery !== "") {
       setData(data.filter((item) => item.companyName === searchQuery));
     }
-    if (date != "") {
+    if (date !== "") {
       let curr_date = new Date();
-      if (date == "Today") {
-        setData(
-          data.filter((item) => {
-            item.createdAt = curr_date;
-          })
-        );
+      if (date === "Today") {
+        setData(data.filter((item) => (item.createdAt = curr_date)));
       } else if (date == "Past Month") {
         console.log(
           data.filter((item) => {
@@ -81,7 +80,6 @@ export const Applications = () => {
       _id: newRow._id,
       status: newRow.status,
     });
-    console.log(response);
     if (response.status === 200) {
       return newRow;
     }

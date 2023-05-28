@@ -28,3 +28,17 @@ export const GetApplicationStats = async () => {
     .catch((error) => error.response);
   return response;
 };
+
+export const DeleteApplications = async (data) => {
+  const response = await axios
+    .post(`${URL}/delete`, data, config)
+    .catch((error) => error.response);
+  return response;
+};
+
+export const UpdateStatus = async (data) => {
+  const response = await axios
+    .put(`${URL}/edit`, data, config)
+    .catch((error) => error.response);
+  return response;
+};

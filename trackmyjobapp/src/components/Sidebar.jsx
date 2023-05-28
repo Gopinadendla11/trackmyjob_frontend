@@ -9,6 +9,7 @@ import { GetUserData } from "../services/UserDataService";
 const Sidebar = () => {
   const [name, setName] = useState("");
   const [intials, setIntials] = useState("");
+
   const getData = async () => {
     const response = await GetUserData();
     if (response.status === 200) {
@@ -27,7 +28,7 @@ const Sidebar = () => {
     getData();
   }, []);
   return (
-    <div className="h-screen 2xl:right-[1300px] xl:right-[1100px] sm:right-[400px] lg:absolute lg:left-0 lg:right-0 h-full shadow-xl w-[300px]">
+    <div className="h-screen 2xl:right-[1300px] xl:right-[1100px] sm:right-[400px] lg:absolute lg:left-0 lg:right-0 shadow-xl w-[300px]">
       <div className="w-full h-1/4 mb-8 flex justify-center items-center flex-col bg-purple-300">
         <Avatar sx={{ bgcolor: deepPurple[500] }}>{intials}</Avatar>
         <p className="py-4 font-bold">{name}</p>
