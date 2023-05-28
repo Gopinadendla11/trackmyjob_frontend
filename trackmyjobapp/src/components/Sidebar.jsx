@@ -1,16 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { SidebarData } from "./SidebarData";
 import Avatar from "@mui/material/Avatar";
 import { deepPurple } from "@mui/material/colors";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Logout } from "../services/AuthService";
+import { GetUserData } from "../services/UserDataService";
 
 const Sidebar = () => {
+  const [name, setName] = useState("");
+  const [intials, setIntials] = useState("");
+  const getData = async () => {
+    const response = await GetUserData();
+    if (response.status === 200) {
+      const user = response.data;
+      let updateName =
+        user.first_name.charAt(0).toUpperCase() + user.first_name.slice(1);
+      setName(updateName);
+      setIntials(
+        user.first_name.charAt(0).toUpperCase() +
+          user.last_name.charAt(0).toUpperCase()
+      );
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <div className="h-full shadow-xl ">
       <div className="w-full h-1/4 mb-8 flex justify-center items-center flex-col bg-purple-300">
-        <Avatar sx={{ bgcolor: deepPurple[500] }}>GK</Avatar>
-        <p className="py-4">Gopi Krishna</p>
+        <Avatar sx={{ bgcolor: deepPurple[500] }}>{intials}</Avatar>
+        <p className="py-4 font-bold">{name}</p>
       </div>
       <div>
         {SidebarData.map((item) => {

@@ -2,7 +2,7 @@ import React from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import LogoutIcon from "@mui/icons-material/Logout";
+import AddIcon from "@mui/icons-material/Add";
 
 export const SidebarData = [
   {
@@ -22,7 +22,7 @@ export const SidebarData = [
   },
   {
     name: "Add Application",
-    Icon: <AccountCircleIcon />,
+    Icon: <AddIcon />,
     link: "/new-application",
   },
 ];

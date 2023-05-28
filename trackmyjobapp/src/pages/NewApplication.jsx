@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import { Formik, Form, Field } from "formik";
-import { AddNewApplication } from "../services/DataService";
+import { AddNewApplication } from "../services/ApplicationService";
 import Snackbar from "@mui/material/Snackbar";
 import { Alert } from "@mui/material";
 
@@ -9,9 +9,6 @@ const NewApplication = () => {
   const [alert, setAlert] = useState(false);
   const [alertMsg, setAlertMsg] = useState("");
   const [sev, setSev] = useState("error");
-  const handleClose = () => {
-    setAlert(false);
-  };
 
   const onFormSubmit = async (values, { setSubmitting, resetForm }) => {
     setSubmitting(true);
@@ -38,9 +35,13 @@ const NewApplication = () => {
           open={alert}
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           autoHideDuration={6000}
-          onClose={handleClose}
+          onClose={() => setAlert(false)}
         >
-          <Alert onClose={handleClose} severity={sev} sx={{ width: "100%" }}>
+          <Alert
+            onClose={() => setAlert(false)}
+            severity={sev}
+            sx={{ width: "100%" }}
+          >
             {alertMsg}
           </Alert>
         </Snackbar>

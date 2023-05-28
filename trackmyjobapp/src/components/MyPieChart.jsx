@@ -1,58 +1,67 @@
-import React from "react";
-import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
+import React, { useState, useEffect } from "react";
+import ReactApexChart from "react-apexcharts";
+import { GetUserData } from "../services/UserDataService";
 
 const MyPieChart = () => {
-  const COLORS = ["#8884d8", "#82ca9d", "#FFBB28", "#FF8042", "#AF19FF"];
-  const pieData = [
-    {
-      name: "Pending",
-      count: 65,
-    },
-    {
-      name: "Online Assessments",
-      count: 12,
-    },
-    {
-      name: "Interviews",
-      count: 3,
-    },
-    {
-      name: "Rejected",
-      count: 23,
-    },
-  ];
-  const RADIAN = Math.PI / 180;
-
-  const CustomTooltip = ({ active, payload, label }) => {
-    if (active) {
-      return (
-        <div className="custom-tooltip p-2 text-[12px] bg-primary text-white">
-          <label>{`${payload[0].name} : ${payload[0].value}%`}</label>
-        </div>
-      );
+  const [data, setData] = useState([0]);
+  const getData = async () => {
+    const response = await GetUserData();
+    if (response.status === 200) {
+      const user = response.data;
+      const appStats = [
+        user.n_applied,
+        user.n_assessments,
+        user.n_interviews,
+        user.n_rejected,
+      ];
+      setData(appStats);
     }
-    return null;
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+  const chartData = {
+    chart: {
+      type: "pie",
+      id: "trackmyjob-jobs-percentage",
+      foreColor: "black",
+    },
+    labels: ["Applied", "Online Assessments", "Interviews", "Rejected"],
+    fill: {
+      colors: ["#8884d8", "#82ca9d", "#FFBB28", "#FF8042", "#AF19FF"],
+    },
+    stroke: {
+      colors: ["white"],
+      width: 1,
+    },
+    legend: {
+      position: "bottom",
+      width: 400,
+    },
+    series: data,
+    // responsive: [
+    //   {
+    //     breakpoint: 480,
+    //     options: {
+    //       chart: {
+    //         width: 200,
+    //       },
+    //       legend: {
+    //         position: "bottom",
+    //       },
+    //     },
+    //   },
+    // ],
   };
 
   return (
-    <div className="flex justify-center">
-      <PieChart width={350} height={350}>
-        <Pie
-          data={pieData}
-          cx="50%"
-          cy="50%"
-          labelLine={false}
-          outerRadius={80}
-          fill="#8884d8"
-          dataKey="count"
-        >
-          {pieData.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Pie>
-        <Tooltip content={<CustomTooltip />} />
-        <Legend />
-      </PieChart>
+    <div className="py-12">
+      <ReactApexChart
+        type="pie"
+        options={chartData}
+        series={chartData.series}
+      />
     </div>
   );
 };

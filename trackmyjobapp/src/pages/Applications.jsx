@@ -1,7 +1,7 @@
 import { Box } from "@mui/system";
 import React, { useEffect } from "react";
 import Sidebar from "../components/Sidebar";
-import { GetApplications } from "../services/DataService";
+import { GetApplications } from "../services/ApplicationService";
 import { DataGrid } from "@mui/x-data-grid";
 import { Dropdown } from "../components/Dropdown";
 import Button from "../components/Button";

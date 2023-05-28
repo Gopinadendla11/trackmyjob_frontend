@@ -28,10 +28,30 @@ const App = () => {
           <Route
             path="/new-application"
             exact
-            Component={NewApplication}
+            element={
+              <RequireAuth>
+                <NewApplication />
+              </RequireAuth>
+            }
           ></Route>
-          <Route path="/applications" exact Component={Applications}></Route>
-          <Route path="/profile" exact Component={Profile}></Route>
+          <Route
+            path="/applications"
+            exact
+            element={
+              <RequireAuth>
+                <Applications />
+              </RequireAuth>
+            }
+          ></Route>
+          <Route
+            path="/profile"
+            exact
+            element={
+              <RequireAuth>
+                <Profile />
+              </RequireAuth>
+            }
+          ></Route>
 
           <Route path="/404" exact Component={ErrorPage}></Route>
           <Route path="*" element={<Navigate replace to="/404" />} />
