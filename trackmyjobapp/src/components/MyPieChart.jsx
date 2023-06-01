@@ -37,7 +37,6 @@ const MyPieChart = () => {
     },
     legend: {
       position: "bottom",
-      width: 400,
     },
     series: data,
     // responsive: [
@@ -61,6 +60,7 @@ const MyPieChart = () => {
         type="pie"
         options={chartData}
         series={chartData.series}
+        height="auto"
       />
     </div>
   );

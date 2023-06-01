@@ -110,17 +110,9 @@ export const Applications = () => {
 
   //return to display applications page
   return (
-    <div className="h-screen w-screen overflow-x-hidden  ">
-      <button className="h-4 lg:hidden" onClick={toggleSideNav}>
-        <MenuIcon></MenuIcon>
-      </button>
+    <div className="h-screen w-screen overflow-x-hidden  bg-purple-50">
       <div className="flex">
-        <div className="hidden lg:block  lg:basis-3/12">
-          <Sidebar />
-        </div>
-        <div className="lg:hidden lg:basis-3/12">
-          {showsidebar && <Sidebar />}
-        </div>
+        <Sidebar />
         <div className=" basis-9/12 mx-8">
           <div className="text-center pt-10 text-xl flex justify-between items-center">
             <h1 className="font-bold">Applications</h1>

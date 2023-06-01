@@ -9,6 +9,7 @@ import MyBarChart from "../components/MyBarChart";
 import MyPieChart from "../components/MyPieChart";
 import MenuIcon from "@mui/icons-material/Menu";
 import DashboardCard from "../components/DashboardCard";
+import { MdMenu, MdClear } from "react-icons/md";
 
 const Dashboard = () => {
   const [showsidebar, setsidebar] = useState(true);
@@ -24,6 +25,7 @@ const Dashboard = () => {
 
   const getData = async () => {
     const response = await GetUserData();
+
     if (response.status === 200) {
       const user = response.data;
       let updateName =
@@ -41,22 +43,14 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="h-screen w-screen flex overflow-auto">
-      {/* <button className="h-4 lg:hidden" onClick={toggleSideNav}>
-        <MenuIcon></MenuIcon>
-      </button>
-      <div className="flex">
-        <div className="lg:hidden lg:basis-3/12">
-          {showsidebar && <Sidebar />}
-        </div>
-      </div> */}
-      <div className="h-screen basis-1/6">
-        <Sidebar />
-      </div>
-      <div className="h-screen basis-5/6 bg-purple-50">
-        <p className="px-20 py-12 text-[36px] font-bold">Welcome {name}</p>
+    <div className="h-screen w-screen flex overflow-scroll">
+      <Sidebar />
+      <div className="h-screen bg-purple-50 w-full ">
+        <p className="px-5 xl:px-20 py-12 text-4xl font-bold text-center sm:text-left">
+          Welcome {name}
+        </p>
         {/* Dashboard Cards */}
-        <div className="px-24 flex justify-between">
+        <div className="flex flex-wrap md:flex-nowrap justify-center xl:justify-between px-5 xl:px-20 2xl:space-x-12 ">
           <DashboardCard
             name="Job Applications"
             number={n_applied}
@@ -80,14 +74,14 @@ const Dashboard = () => {
         </div>
 
         {/* Charts */}
-        <div className="flex w-full  px-24 pt-16">
-          <div className="basis-2/3 mr-8 rounded-lg p-8 flex-col justify-between bg-white drop-shadow-xl">
+        <div className="flex flex-col md:flex-row  justify-center w-full px-8 xl:px-20 pt-12">
+          <div className="basis-2/3 xl:mr-8 rounded-lg p-4 md:p-8 flex-col justify-between bg-white drop-shadow-xl mb-6">
             <p className="font-bold text-[18px]">
               Number of jobs applied everyday
             </p>
             <MyBarChart />
           </div>
-          <div className="basis-1/3 rounded-lg p-8 flex-col justify-between bg-white drop-shadow-xl">
+          <div className="basis-1/3 rounded-lg p-8 flex-col justify-between bg-white drop-shadow-xl mb-6">
             <p className="font-bold">Job Hunt progress</p>
             <MyPieChart />
           </div>

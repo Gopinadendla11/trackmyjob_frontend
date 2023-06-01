@@ -3,7 +3,7 @@ import { GetApplicationStats } from "../services/ApplicationService";
 
 import ReactApexChart from "react-apexcharts";
 
-const MyBarChart = () => {
+const MyBarChart = (props) => {
   const [dates, setDates] = useState([]);
   const [values, setValues] = useState([]);
 
@@ -58,6 +58,24 @@ const MyBarChart = () => {
         columnWidth: "40px",
       },
     },
+    responsive: [
+      {
+        breakpoint: 1400,
+        options: {
+          chart: {
+            height: "auto",
+          },
+        },
+      },
+      {
+        breakpoint: 500,
+        options: {
+          chart: {
+            height: "250px",
+          },
+        },
+      },
+    ],
     xaxis: {
       categories: dates,
     },

@@ -88,143 +88,133 @@ export const Profile = () => {
   const [editPwd, setEditPwd] = useState(false);
 
   return (
-    <div className="h-screen w-screen overflow-x-hidden">
-      <button className="h-4 lg:hidden" onClick={toggleSideNav}>
-        <MenuIcon></MenuIcon>
-      </button>
-      <div className="flex">
-        <div className="h-screenhidden lg:block lg:basis-3/12">
-          <Sidebar />
-        </div>
-        <div className="lg:hidden lg:basis-3/12">
-          {showsidebar && <Sidebar />}
-        </div>
-        <div className="lg:basis-9/12 justify-center ">
-          <Snackbar
-            open={alert}
-            anchorOrigin={{ vertical: "top", horizontal: "center" }}
-            autoHideDuration={6000}
+    <div className="h-screen w-screen flex overflow-x-hidden">
+      <Sidebar />
+      <div className="w-full">
+        <Snackbar
+          open={alert}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          autoHideDuration={6000}
+          onClose={() => setAlert(false)}
+        >
+          <Alert
             onClose={() => setAlert(false)}
+            severity={sev}
+            sx={{ width: "100%" }}
           >
-            <Alert
-              onClose={() => setAlert(false)}
-              severity={sev}
-              sx={{ width: "100%" }}
-            >
-              {alertMsg}
-            </Alert>
-          </Snackbar>
+            {alertMsg}
+          </Alert>
+        </Snackbar>
 
-          <div className="h-screen basis-5/6 bg-purple-50 flex flex-col items-center">
-            <div className="rounded-xl my-12 w-3/4 flex-col drop-shadow-xl bg-white">
-              <div className="w-full py-8 flex flex-col justify-center items-center ">
-                <Avatar
-                  sx={{
-                    bgcolor: deepPurple[500],
-                    fontSize: "80px",
-                    height: 182,
-                    width: 182,
-                  }}
-                >
-                  {intials}
-                </Avatar>
-                <p className="py-4 text-[24px] font-bold">{name}</p>
-              </div>
+        <div className="h-screen basis-5/6 bg-purple-50 flex flex-col items-center">
+          <div className="rounded-xl my-12 w-3/4 flex-col drop-shadow-xl bg-white">
+            <div className="w-full py-8 flex flex-col justify-center items-center ">
+              <Avatar
+                sx={{
+                  bgcolor: deepPurple[500],
+                  fontSize: "80px",
+                  height: 182,
+                  width: 182,
+                }}
+              >
+                {intials}
+              </Avatar>
+              <p className="py-4 text-[24px] font-bold">{name}</p>
             </div>
+          </div>
 
-            <div className=" flex justify-center rounded-xl w-3/4  drop-shadow-xl bg-white py-4">
-              <div className="w-1/3 ">
-                <div className="w-full flex justify-between items-center my-8">
-                  <p className="font-bold text-[18px] "> First Name:</p>
-                  <input
-                    className="px-4 h-12  rounded-md border-[2px] border-solid border-primary"
-                    name="firstName"
-                    type="text"
-                    required
-                    disabled={!editMode}
-                    value={data.firstName}
-                    onChange={onValueChanged}
-                  ></input>
-                </div>
-                <div className="w-full flex justify-between items-center my-8">
-                  <p className="font-bold text-[18px] "> Last Name:</p>
-                  <input
-                    className="px-4 h-12 rounded-md border-[2px] border-solid border-primary"
-                    name="lastName"
-                    type="text"
-                    required
-                    disabled={!editMode}
-                    value={data.lastName}
-                    onChange={onValueChanged}
-                  ></input>
-                </div>
-                <div className="w-full flex justify-between items-center my-8">
-                  <p className="font-bold text-[18px] ">Email:</p>
-                  <input
-                    className="px-4 h-12 rounded-md border-[2px] border-solid border-primary"
-                    name="email"
-                    type="email"
-                    required
-                    disabled={!editMode}
-                    value={data.email}
-                    onChange={onValueChanged}
-                  ></input>
-                </div>
-                {editPwd ? (
-                  <div className="w-full flex justify-between items-center my-8">
-                    <p className="font-bold text-[18px] ">Password:</p>
-                    <input
-                      className="px-4 h-12 rounded-md border-[2px] border-solid border-primary"
-                      name="password"
-                      required
-                      type={editPwd ? "text" : "password"}
-                      disabled={!editPwd}
-                      value={data.password}
-                      onChange={onValueChanged}
-                    ></input>
-                  </div>
-                ) : null}
-
-                {editMode || editPwd ? (
-                  <div className="w-full flex justify-center items-center">
-                    <button
-                      className="bg-primary text-white text-[18px] p-2 px-4 m-4 rounded-lg"
-                      onClick={onUpdate}
-                      type="submit"
-                    >
-                      Update
-                    </button>
-                    <button
-                      className="bg-primary text-white text-[18px] p-2 px-4 m-4 rounded-lg"
-                      onClick={() => {
-                        setEditMode(false);
-                        setEditPwd(false);
-                        clearState();
-                      }}
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                ) : (
-                  <div className="w-full flex justify-center items-center">
-                    <button
-                      className="bg-primary text-white text-[18px] p-2 px-4 m-4 rounded-lg"
-                      onClick={() => setEditMode(true)}
-                    >
-                      Edit Profile
-                    </button>
-                    <button
-                      className="bg-primary text-white text-[18px] p-2 px-4 m-4 rounded-lg"
-                      onClick={() => {
-                        setEditPwd(true);
-                        // setEditMode(true);
-                      }}
-                    >
-                      Change Password
-                    </button>
-                  </div>
-                )}
+          <div className=" flex justify-center rounded-xl w-3/4  drop-shadow-xl bg-white py-4">
+            <div className="w-1/3 ">
+              <div className="w-full flex justify-between items-center my-8">
+                <p className="font-bold text-[18px] "> First Name:</p>
+                <input
+                  className="px-4 h-12  rounded-md border-[2px] border-solid border-primary"
+                  name="firstName"
+                  type="text"
+                  required
+                  disabled={!editMode}
+                  value={data.firstName}
+                  onChange={onValueChanged}
+                ></input>
               </div>
+              <div className="w-full flex justify-between items-center my-8">
+                <p className="font-bold text-[18px] "> Last Name:</p>
+                <input
+                  className="px-4 h-12 rounded-md border-[2px] border-solid border-primary"
+                  name="lastName"
+                  type="text"
+                  required
+                  disabled={!editMode}
+                  value={data.lastName}
+                  onChange={onValueChanged}
+                ></input>
+              </div>
+              <div className="w-full flex justify-between items-center my-8">
+                <p className="font-bold text-[18px] ">Email:</p>
+                <input
+                  className="px-4 h-12 rounded-md border-[2px] border-solid border-primary"
+                  name="email"
+                  type="email"
+                  required
+                  disabled={!editMode}
+                  value={data.email}
+                  onChange={onValueChanged}
+                ></input>
+              </div>
+              {editPwd ? (
+                <div className="w-full flex justify-between items-center my-8">
+                  <p className="font-bold text-[18px] ">Password:</p>
+                  <input
+                    className="px-4 h-12 rounded-md border-[2px] border-solid border-primary"
+                    name="password"
+                    required
+                    type={editPwd ? "text" : "password"}
+                    disabled={!editPwd}
+                    value={data.password}
+                    onChange={onValueChanged}
+                  ></input>
+                </div>
+              ) : null}
+
+              {editMode || editPwd ? (
+                <div className="w-full flex justify-center items-center">
+                  <button
+                    className="bg-primary text-white text-[18px] p-2 px-4 m-4 rounded-lg"
+                    onClick={onUpdate}
+                    type="submit"
+                  >
+                    Update
+                  </button>
+                  <button
+                    className="bg-primary text-white text-[18px] p-2 px-4 m-4 rounded-lg"
+                    onClick={() => {
+                      setEditMode(false);
+                      setEditPwd(false);
+                      clearState();
+                    }}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              ) : (
+                <div className="w-full flex justify-center items-center">
+                  <button
+                    className="bg-primary text-white text-[18px] p-2 px-4 m-4 rounded-lg"
+                    onClick={() => setEditMode(true)}
+                  >
+                    Edit Profile
+                  </button>
+                  <button
+                    className="bg-primary text-white text-[18px] p-2 px-4 m-4 rounded-lg"
+                    onClick={() => {
+                      setEditPwd(true);
+                      // setEditMode(true);
+                    }}
+                  >
+                    Change Password
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

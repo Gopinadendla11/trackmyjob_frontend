@@ -33,17 +33,9 @@ const NewApplication = () => {
 
   return (
     <div className="h-screen w-screen overflow-x-hidden">
-      <button className="h-4 lg:hidden" onClick={toggleSideNav}>
-        <MenuIcon></MenuIcon>
-      </button>
-      <div className="flex">
-        <div className="hidden lg:block  lg:basis-3/12">
-          <Sidebar />
-        </div>
-        <div className="lg:hidden lg:basis-3/12">
-          {showsidebar && <Sidebar />}
-        </div>
-        <div className="w-full p-12 lg:basis-9/12">
+      <div className="flex ">
+        <Sidebar />
+        <div className="w-full p-12">
           <Snackbar
             open={alert}
             anchorOrigin={{ vertical: "top", horizontal: "center" }}
