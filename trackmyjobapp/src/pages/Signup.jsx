@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import BannerImg from "../images/banner image.png";
 import { AuthServiceRegister } from "../services/AuthService";
-
 import { AiFillEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Signup = () => {
   const [firstName, setFirstName] = useState("");
@@ -14,21 +15,31 @@ const Signup = () => {
 
   const onRegister = async (event) => {
     event.preventDefault();
+    setLoading(true);
     const response = await AuthServiceRegister(
       firstName,
       lastName,
       email,
       password
     );
-    console.log(response);
+    //console.log(response);
+    setLoading(false);
     if (response.status === 200) window.location.href = "/";
     else setErrorMsg(response.data);
   };
 
+  const [loading, setLoading] = useState(false);
+
   return (
     <div className="h-screen w-screen bg-indigo-400 flex justify-center items-center lg:px-24 lg:py-16 sm:px-4 sm:py-4">
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <div className="w-full h-full rounded-lg bg-white drop-shadow-xl flex">
-        <div className="hidden lg:block lg:basis-3/5 lg:p-8 lg:flex lg:flex-col lg:items-center lg:justify-start lg:content-center">
+        <div className="hidden lg:basis-3/5 lg:p-8 lg:flex lg:flex-col lg:items-center lg:justify-start lg:content-center">
           <img className=" w-3/5 h-auto " src={BannerImg} alt="banner"></img>
         </div>
         <div className="lg:basis-2/5 p-6 pt-6 ">
