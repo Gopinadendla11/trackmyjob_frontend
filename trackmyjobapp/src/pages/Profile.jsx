@@ -8,11 +8,6 @@ import Snackbar from "@mui/material/Snackbar";
 import { Alert } from "@mui/material";
 
 export const Profile = () => {
-  const [showsidebar, setsidebar] = React.useState(true);
-
-  const toggleSideNav = () => {
-    setsidebar((prev) => !prev);
-  };
   const [alert, setAlert] = useState(false);
   const [alertMsg, setAlertMsg] = useState("");
   const [sev, setSev] = useState("error");
@@ -124,9 +119,11 @@ export const Profile = () => {
           </div>
 
           <div className=" flex justify-center rounded-xl w-3/4  drop-shadow-xl bg-white py-4">
-            <div className="w-1/3 ">
-              <div className="w-full flex justify-between items-center my-8">
-                <p className="font-bold text-[18px] "> First Name:</p>
+            <div className="w-1/2 2xl:w-1/3 ">
+              <div className="w-full flex flex-col lg:flex-row justify-between items-center my-8">
+                <p className="font-bold text-lg float-left mb-2 lg:mb-0">
+                  First Name:
+                </p>
                 <input
                   className="px-4 h-12  rounded-md border-[2px] border-solid border-primary"
                   name="firstName"
@@ -137,8 +134,8 @@ export const Profile = () => {
                   onChange={onValueChanged}
                 ></input>
               </div>
-              <div className="w-full flex justify-between items-center my-8">
-                <p className="font-bold text-[18px] "> Last Name:</p>
+              <div className="w-full flex flex-col lg:flex-row justify-between items-center my-8">
+                <p className="font-bold text-lg mb-2 lg:mb-0"> Last Name:</p>
                 <input
                   className="px-4 h-12 rounded-md border-[2px] border-solid border-primary"
                   name="lastName"
@@ -149,8 +146,8 @@ export const Profile = () => {
                   onChange={onValueChanged}
                 ></input>
               </div>
-              <div className="w-full flex justify-between items-center my-8">
-                <p className="font-bold text-[18px] ">Email:</p>
+              <div className="w-full flex flex-col lg:flex-row justify-between items-center my-8">
+                <p className="font-bold text-lg  mb-2 lg:mb-0">Email:</p>
                 <input
                   className="px-4 h-12 rounded-md border-[2px] border-solid border-primary"
                   name="email"
@@ -162,8 +159,8 @@ export const Profile = () => {
                 ></input>
               </div>
               {editPwd ? (
-                <div className="w-full flex justify-between items-center my-8">
-                  <p className="font-bold text-[18px] ">Password:</p>
+                <div className="w-full flex flex-col lg:flex-row justify-between items-center my-8">
+                  <p className="font-bold text-lg  mb-2 lg:mb-0">Password:</p>
                   <input
                     className="px-4 h-12 rounded-md border-[2px] border-solid border-primary"
                     name="password"
@@ -177,7 +174,7 @@ export const Profile = () => {
               ) : null}
 
               {editMode || editPwd ? (
-                <div className="w-full flex justify-center items-center">
+                <div className="w-full flex flex-col lg:flex-row justify-center items-center">
                   <button
                     className="bg-primary text-white text-[18px] p-2 px-4 m-4 rounded-lg"
                     onClick={onUpdate}
@@ -197,15 +194,15 @@ export const Profile = () => {
                   </button>
                 </div>
               ) : (
-                <div className="w-full flex justify-center items-center">
+                <div className="w-full flex flex-col lg:flex-row justify-center items-center">
                   <button
-                    className="bg-primary text-white text-[18px] p-2 px-4 m-4 rounded-lg"
+                    className="bg-primary text-white text-sm md:text-lg p-2 px-4 m-4 rounded-lg"
                     onClick={() => setEditMode(true)}
                   >
                     Edit Profile
                   </button>
                   <button
-                    className="bg-primary text-white text-[18px] p-2 px-4 m-4 rounded-lg"
+                    className="bg-primary text-white text-sm md:text-lg p-2 px-4 m-4 rounded-lg"
                     onClick={() => {
                       setEditPwd(true);
                       // setEditMode(true);

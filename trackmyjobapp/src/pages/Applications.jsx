@@ -11,22 +11,13 @@ import { DataGrid, GridCellEditStopReasons } from "@mui/x-data-grid";
 import { Dropdown } from "../components/Dropdown";
 import Button from "../components/Button";
 import Search from "../components/Search";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { Columns } from "./GridData";
-import Snackbar from "@mui/material/Snackbar";
-import { Alert } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import MenuIcon from "@mui/icons-material/Menu";
 
 const StatusOptions = ["Applied", "InProgress", "Rejected"];
 const DateOptions = ["Past Week", "Past Month", "Today"];
 
 export const Applications = () => {
-  const [showsidebar, setsidebar] = React.useState(true);
-
-  const toggleSideNav = () => {
-    setsidebar((prev) => !prev);
-  };
   const [alert, setAlert] = useState(false);
   const [alertMsg, setAlertMsg] = useState("");
   const [sev, setSev] = useState("error");
@@ -110,12 +101,12 @@ export const Applications = () => {
 
   //return to display applications page
   return (
-    <div className="h-screen w-screen overflow-x-hidden  bg-purple-50">
+    <div className="h-screen w-screen overflow-scroll bg-purple-50">
       <div className="flex">
         <Sidebar />
         <div className=" basis-9/12 mx-8">
           <div className="text-center pt-10 text-xl flex justify-between items-center">
-            <h1 className="font-bold">Applications</h1>
+            <h1 className="font-bold text-3xl">My Applications</h1>
             <a href="/new-application">
               <Button btnText="Add New Application" />
             </a>

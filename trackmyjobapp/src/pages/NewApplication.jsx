@@ -139,7 +139,7 @@ const NewApplication = () => {
               </div>
               <input
                 type="submit"
-                className="bg-primary text-white text-[18px] p-3 w-1/4 my-6 rounded-lg"
+                className="bg-primary text-white text-[18px] p-3 w-1/2 md:w-1/4 my-6 rounded-lg"
                 // onClick={onApplicationSubmit}
               ></input>
             </Form>
