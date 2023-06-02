@@ -114,7 +114,7 @@ export const Profile = () => {
               >
                 {intials}
               </Avatar>
-              <p className="py-4 text-[24px] font-bold">{name}</p>
+              <p className="py-4 text-md md:text-3xl font-bold">{name}</p>
             </div>
           </div>
 

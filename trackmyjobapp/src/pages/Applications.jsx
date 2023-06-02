@@ -1,5 +1,4 @@
 import { Box } from "@mui/system";
-import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import {
@@ -13,8 +12,16 @@ import Button from "../components/Button";
 import Search from "../components/Search";
 import { Columns } from "./GridData";
 import DeleteIcon from "@mui/icons-material/Delete";
+import SearchIcon from "@mui/icons-material/Search";
 
-const StatusOptions = ["Applied", "InProgress", "Rejected"];
+// const StatusOptions = ["Applied", "InProgress", "Rejected"];
+const StatusOptions = [
+  "Applied",
+  "online_assessment",
+  "interview",
+  "Rejected",
+  "selected",
+];
 const DateOptions = ["Past Week", "Past Month", "Today"];
 
 export const Applications = () => {
@@ -101,25 +108,25 @@ export const Applications = () => {
 
   //return to display applications page
   return (
-    <div className="h-screen w-screen overflow-scroll bg-purple-50">
-      <div className="flex">
-        <Sidebar />
-        <div className=" basis-9/12 mx-8">
-          <div className="text-center pt-10 text-xl flex justify-between items-center">
-            <h1 className="font-bold text-3xl">My Applications</h1>
-            <a href="/new-application">
-              <Button btnText="Add New Application" />
-            </a>
+    <div className="h-screen w-screen overflow-scroll flex bg-purple-50">
+      <Sidebar />
+      <div className="w-full flex flex-col items-center">
+        <div className="px-12 xl:px-24 py-8 w-full text-xl flex flex-col md:flex-row justify-between items-center">
+          <h1 className="font-bold text-md xl:text-3xl">My Applications</h1>
+          <a href="/new-application">
+            <Button btnText="Add New Application" />
+          </a>
+        </div>
+        <div className="w-full px-12 xl:px-24 flex flex-col xl:flex-row justify-center space-x-4 drop-shadow-xl items-center">
+          <div className="w-full basis-1/2">
+            <Search
+              onSearchChange={(query) => {
+                setSearchQuery(query);
+              }}
+            />
           </div>
-          <div className="w-full flex justify-center mt-8 drop-shadow-xl items-center">
-            <div className="mx-3 basis-6/12">
-              <Search
-                onSearchChange={(query) => {
-                  setSearchQuery(query);
-                }}
-              />
-            </div>
-            <div className="mx-3 basis-2/12">
+          <div className="w-full basis-1/2 flex justify-between items-center space-x-3">
+            <div className="basis-1/3 ">
               <Dropdown
                 options={StatusOptions}
                 OnSelectionChange={(status) => {
@@ -128,7 +135,7 @@ export const Applications = () => {
                 name="Status"
               />
             </div>
-            <div className="mx-3 basis-2/12">
+            <div className="basis-1/3">
               <Dropdown
                 OnSelectionChange={(date) => {
                   setdate(date);
@@ -138,51 +145,52 @@ export const Applications = () => {
                 name="Date"
               />
             </div>
-            <div className="mx-3 basis-2/12">
+            <div className="basis-1/3 my-3 flex justify-center">
               <button
-                className="w-full p-3 pr-3 my-3 rounded-md border-[2px] border-solid border-primary bg-primary text-white"
+                className="w-full p-3 rounded-md border-[2px] border-solid border-primary bg-primary text-white text-[0px] md:text-lg"
                 onClick={searchClicked}
               >
+                <SearchIcon />
                 Search
               </button>
             </div>
-            <div className="mx-3">
+            <div className="basis-1/3 my-3 flex justify-center">
               <button
-                className="w-full flex p-3 pr-3 my-3 rounded-md border-[2px] border-solid border-primary bg-primary text-white"
+                className="w-full flex p-3 pr-3 rounded-md border-[2px] border-solid border-primary bg-primary text-white justify-center text-[0px] md:text-lg"
                 onClick={deleteCLicked}
               >
                 Delete
-                <DeleteIcon></DeleteIcon>
+                <DeleteIcon />
               </button>
             </div>
           </div>
+        </div>
 
-          <div className="text-center pt-10">
-            <Box sx={{ height: 500, width: "100%" }}>
-              <DataGrid
-                rows={data}
-                columns={Columns}
-                processRowUpdate={statusChanged}
-                experimentalFeatures={{ newEditingApi: true }}
-                onProcessRowUpdateError={(err) => {
-                  console.log(err);
-                }}
-                onRowSelectionModelChange={(newRowSelectionModel) => {
-                  setRowSelectionModel(newRowSelectionModel);
-                }}
-                initialState={{
-                  pagination: {
-                    paginationModel: {
-                      pageSize: 10,
-                    },
+        <div className="p-8 px-12 xl:px-24 w-full">
+          <Box sx={{ height: 500, width: "100%" }}>
+            <DataGrid
+              rows={data}
+              columns={Columns}
+              processRowUpdate={statusChanged}
+              experimentalFeatures={{ newEditingApi: true }}
+              onProcessRowUpdateError={(err) => {
+                console.log(err);
+              }}
+              onRowSelectionModelChange={(newRowSelectionModel) => {
+                setRowSelectionModel(newRowSelectionModel);
+              }}
+              initialState={{
+                pagination: {
+                  paginationModel: {
+                    pageSize: 10,
                   },
-                }}
-                pageSizeOptions={[5]}
-                checkboxSelection
-                disableRowSelectionOnClick
-              />
-            </Box>
-          </div>
+                },
+              }}
+              pageSizeOptions={[5]}
+              checkboxSelection
+              disableRowSelectionOnClick
+            />
+          </Box>
         </div>
       </div>
     </div>

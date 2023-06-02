@@ -4,6 +4,7 @@ import { AiFillEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { AuthServiceLogin } from "../services/AuthService";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
+import Logo from "../images/logo.png";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -35,6 +36,10 @@ const Login = () => {
       </Backdrop>
       <div className="w-full h-full rounded-lg bg-white drop-shadow-xl flex">
         <div className="lg:basis-3/5 p-8 hidden lg:flex lg:flex-col lg:items-center lg:justify-start lg:content-center">
+          {/* <div className="flex justify-start">
+            <img className="w-24 h-24 float-left" src={Logo} />
+          </div> */}
+
           <img
             className=" lg:w-3/5 lg:h-auto "
             src={BannerImg}
