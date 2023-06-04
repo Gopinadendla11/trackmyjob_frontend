@@ -1,5 +1,5 @@
 import { Box } from "@mui/system";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Sidebar from "../components/Sidebar";
 import {
   DeleteApplications,
@@ -17,63 +17,45 @@ import SearchIcon from "@mui/icons-material/Search";
 // const StatusOptions = ["Applied", "InProgress", "Rejected"];
 const StatusOptions = [
   "Applied",
-  "online_assessment",
-  "interview",
+  "Online Assessment",
+  "Interview",
   "Rejected",
-  "selected",
+  "Selected",
 ];
-const DateOptions = ["Past Week", "Past Month", "Today"];
+const DateOptions = ["All", "Today", "Past Week", "Past Month"];
 
 export const Applications = () => {
-  const [alert, setAlert] = useState(false);
-  const [alertMsg, setAlertMsg] = useState("");
-  const [sev, setSev] = useState("error");
-  const handleClose = () => {
-    setAlert(false);
-  };
-  let [data, setData] = React.useState([]);
-  let [temp_data, settemp] = React.useState([]);
-  let [status, setstatus] = React.useState("");
-  let [date, setdate] = React.useState("");
-  let [searchQuery, setSearchQuery] = React.useState("");
-  let [rowSelectionModel, setRowSelectionModel] = React.useState("");
+  // const [alert, setAlert] = useState(false);
+  // const [alertMsg, setAlertMsg] = useState("");
+  // const [sev, setSev] = useState("error");
+  // const handleClose = () => {
+  //   setAlert(false);
+  // };
+  let [data, setData] = useState([]);
+  let [displayData, setDisplayData] = useState([]);
+  let [status, setstatus] = useState("");
+  let [dateFilter, setDateFilter] = useState("");
+  let [searchQuery, setSearchQuery] = useState("");
+  let [rowSelectionModel, setRowSelectionModel] = useState("");
+  const [element, setElement] = useState("");
 
   useEffect(() => {}, data);
 
   //function for search click button
-  const searchClicked = () => {
-    data = temp_data;
-    console.log(status);
-    if (status !== "") {
-      setData(data.filter((item) => item.status === status));
-    }
+  const onSearchClicked = () => {
     if (searchQuery !== "") {
       setData(data.filter((item) => item.companyName === searchQuery));
-    }
-    if (date !== "") {
-      let curr_date = new Date();
-      if (date === "Today") {
-        setData(data.filter((item) => (item.createdAt = curr_date)));
-      } else if (date == "Past Month") {
-        console.log(
-          data.filter((item) => {
-            item.companyName = "Meta";
-          })
-        );
-      }
-      console.log("Date is", curr_date);
     }
   };
 
   //function to delete applications
-  const deleteCLicked = async () => {
+  const onDeleteClicked = async () => {
     const response = await DeleteApplications(rowSelectionModel);
     fetchData();
   };
 
   //function to change status
-  const statusChanged = React.useCallback(async (newRow) => {
-    console.log("before");
+  const statusChanged = useCallback(async (newRow) => {
     const response = await UpdateStatus({
       _id: newRow._id,
       status: newRow.status,
@@ -83,10 +65,41 @@ export const Applications = () => {
     }
   });
 
+  const onStatusFilterChanged = (status) => {
+    setstatus(status);
+    if (status !== "")
+      setDisplayData(data.filter((item) => item.status === status));
+  };
+
+  const onDateFilterChanged = (dateRange) => {
+    setDateFilter(dateRange);
+    if (dateFilter !== "") {
+      const currentDate = new Date();
+      let previousDate = new Date();
+      let numDays = 0;
+
+      if (dateRange === "Past Week") numDays = 7;
+      else if (dateRange === "Past Month") numDays = 31;
+      else if (dateRange === "Today") numDays = 1;
+
+      previousDate.setDate(currentDate.getDate() - numDays);
+      console.log(previousDate);
+      setDisplayData(
+        data.filter((item) => {
+          const itemDate = new Date(item.date);
+          return (
+            Date.parse(itemDate) >= Date.parse(previousDate) &&
+            Date.parse(itemDate) <= Date.parse(currentDate)
+          );
+        })
+      );
+      if (dateRange === "All") setDisplayData(data);
+    }
+  };
+
   //function to fetch rows from database
   const fetchData = async (e) => {
     const response = await GetApplications();
-    //   console.log("data is", response);
     let dataArray = [];
     let i = 1;
     response.forEach((item) => {
@@ -98,7 +111,7 @@ export const Applications = () => {
     });
     //   console.log(data);
     setData(dataArray);
-    settemp(dataArray);
+    setDisplayData(dataArray);
   };
 
   //useEffect to call fetch data function
@@ -108,7 +121,7 @@ export const Applications = () => {
 
   //return to display applications page
   return (
-    <div className="h-screen w-screen overflow-scroll flex bg-purple-50">
+    <div className="h-screen w-screen overflow-scroll flex  bg-purple-50">
       <Sidebar />
       <div className="w-full flex flex-col items-center">
         <div className="px-12 xl:px-24 py-8 w-full text-xl flex flex-col md:flex-row justify-between items-center">
@@ -117,59 +130,56 @@ export const Applications = () => {
             <Button btnText="Add New Application" />
           </a>
         </div>
-        <div className="w-full px-12 xl:px-24 flex flex-col xl:flex-row justify-center space-x-4 drop-shadow-xl items-center">
-          <div className="w-full basis-1/2">
-            <Search
-              onSearchChange={(query) => {
-                setSearchQuery(query);
+        <div className="w-full px-12 2xl:px-24 flex flex-col justify-center drop-shadow-xl items-center space-y-4">
+          <div className="w-full flex justify-start">
+            <input
+              className="mr-6 p-3 w-8/12 rounded-md border-[2px] border-solid border-primary"
+              placeholder="What are you looking for?"
+              type="text"
+              onChange={(e) => {
+                setElement(e.target.value);
+                setSearchQuery(e.target.value);
               }}
             />
+            <button
+              className="w-48 p-3 rounded-md border-[2px] border-solid border-primary bg-primary text-white text-[0px] md:text-lg"
+              onClick={onSearchClicked}
+            >
+              <SearchIcon />
+              Search
+            </button>
           </div>
-          <div className="w-full basis-1/2 flex justify-between items-center space-x-3">
-            <div className="basis-1/3 ">
+          <div className="w-full flex justify-start items-center space-x-3 ">
+            <div className="w-4/12">
               <Dropdown
                 options={StatusOptions}
-                OnSelectionChange={(status) => {
-                  setstatus(status);
-                }}
+                OnSelectionChange={onStatusFilterChanged}
                 name="Status"
               />
             </div>
-            <div className="basis-1/3">
+            <div className="w-4/12">
               <Dropdown
-                OnSelectionChange={(date) => {
-                  setdate(date);
-                  console.log("date", date);
-                }}
+                OnSelectionChange={onDateFilterChanged}
                 options={DateOptions}
                 name="Date"
               />
             </div>
-            <div className="basis-1/3 my-3 flex justify-center">
+            <div className="my-3 flex justify-center">
               <button
-                className="w-full p-3 rounded-md border-[2px] border-solid border-primary bg-primary text-white text-[0px] md:text-lg"
-                onClick={searchClicked}
+                className="w-48 flex p-3 pr-3 rounded-md border-[2px] border-solid border-primary bg-primary text-white justify-center text-[0px] md:text-lg"
+                onClick={onDeleteClicked}
               >
-                <SearchIcon />
-                Search
-              </button>
-            </div>
-            <div className="basis-1/3 my-3 flex justify-center">
-              <button
-                className="w-full flex p-3 pr-3 rounded-md border-[2px] border-solid border-primary bg-primary text-white justify-center text-[0px] md:text-lg"
-                onClick={deleteCLicked}
-              >
-                Delete
                 <DeleteIcon />
+                Delete
               </button>
             </div>
           </div>
         </div>
 
-        <div className="p-8 px-12 xl:px-24 w-full">
+        <div className="p-8 px-12 2xl:px-24 w-full">
           <Box sx={{ height: 500, width: "100%" }}>
             <DataGrid
-              rows={data}
+              rows={displayData}
               columns={Columns}
               processRowUpdate={statusChanged}
               experimentalFeatures={{ newEditingApi: true }}

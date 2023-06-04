@@ -3,19 +3,19 @@ export const Columns = [
   {
     field: "companyName",
     headerName: "Company name",
-    width: 150,
+    width: 200,
     renderHeader: () => <strong>{"Company Name"}</strong>,
   },
   {
     field: "jobRole",
     headerName: "Job Role",
-    width: 150,
+    width: 250,
     renderHeader: () => <strong>{"Job Role"}</strong>,
   },
   {
     field: "jobPortal",
     headerName: "Job Portal",
-    width: 150,
+    width: 200,
     renderHeader: () => <strong>{"Job Portal"}</strong>,
   },
   {
@@ -28,7 +28,13 @@ export const Columns = [
     field: "status",
     // headerName: "Status",
     type: "singleSelect",
-    valueOptions: ["Applied", "Rejected", "InProgress"],
+    valueOptions: [
+      "Applied",
+      "Online Assessment",
+      "Interview",
+      "Rejected",
+      "Selected",
+    ],
     width: 150,
     editable: true,
     renderHeader: () => <strong>{"Status"}</strong>,
@@ -36,7 +42,7 @@ export const Columns = [
   {
     field: "jobLink",
     headerName: "Job Link",
-    width: 150,
+    width: 100,
     renderHeader: () => <strong>{"Job Link"}</strong>,
     renderCell: (params) => {
       return (

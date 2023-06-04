@@ -11,33 +11,9 @@ const MyBarChart = (props) => {
     const response = await GetApplicationStats();
     if (response.status === 200) {
       const data = response.data;
-      const datesArr = [];
-      const valuesArr = [];
-      let now = new Date(),
-        DAY_MS = 86400000; // 1 day in milliseconds
-
-      for (var i = 6; i >= 0; i--) {
-        let date = new Date(now.getTime() - i * DAY_MS).toLocaleDateString(
-          "en-US"
-        );
-        datesArr[6 - i] = date;
-        let index = data.findIndex(
-          (i) =>
-            // console.log(i._id);
-            // console.log(i.date);
-            Date.parse(i._id) === Date.parse(date)
-        );
-        console.log(index);
-        if (index === -1) valuesArr[i] = 0;
-        else valuesArr[index] = data[index].count;
-      }
-      console.log(datesArr);
-      console.log(valuesArr);
-
-      // data.map((item) => {
-      //   datesArr.push(item._id);
-      //   valuesArr.push(item.count);
-      // });
+      console.log(data);
+      const datesArr = data.map((item) => item._id);
+      const valuesArr = data.map((item) => item.count);
       setDates(datesArr);
       setValues(valuesArr);
     }
