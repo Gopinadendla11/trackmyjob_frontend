@@ -3,25 +3,29 @@ export const Columns = [
   {
     field: "companyName",
     headerName: "Company name",
-    width: 200,
+    flex: 1,
+    minWidth: 100,
     renderHeader: () => <strong>{"Company Name"}</strong>,
   },
   {
     field: "jobRole",
     headerName: "Job Role",
-    width: 250,
+    flex: 1.5,
+    minWidth: 150,
     renderHeader: () => <strong>{"Job Role"}</strong>,
   },
   {
     field: "jobPortal",
     headerName: "Job Portal",
-    width: 200,
+    flex: 1,
+    minWidth: 100,
     renderHeader: () => <strong>{"Job Portal"}</strong>,
   },
   {
     field: "date",
     headerName: "Applied On",
-    width: 150,
+    flex: 1,
+    minWidth: 100,
     renderHeader: () => <strong>{"Applied On"}</strong>,
   },
   {
@@ -35,14 +39,16 @@ export const Columns = [
       "Rejected",
       "Selected",
     ],
-    width: 150,
+    flex: 1,
     editable: true,
+    minWidth: 100,
     renderHeader: () => <strong>{"Status"}</strong>,
   },
   {
     field: "jobLink",
     headerName: "Job Link",
-    width: 100,
+    flex: 0.5,
+    minWidth: 100,
     renderHeader: () => <strong>{"Job Link"}</strong>,
     renderCell: (params) => {
       return (

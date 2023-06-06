@@ -101,15 +101,12 @@ export const Applications = () => {
   const fetchData = async (e) => {
     const response = await GetApplications();
     let dataArray = [];
-    let i = 1;
-    response.forEach((item) => {
+
+    response.map((item) => {
       item["id"] = item._id;
-      let temp = new Date(item.createdAt);
-      item["date"] = temp.toLocaleDateString();
+      item["date"] = new Date(item.createdAt).toLocaleDateString();
       dataArray.push(item);
-      i++;
     });
-    //   console.log(data);
     setData(dataArray);
     setDisplayData(dataArray);
   };
@@ -121,19 +118,19 @@ export const Applications = () => {
 
   //return to display applications page
   return (
-    <div className="h-screen w-screen overflow-scroll flex  bg-purple-50">
+    <div className="overflow-scroll flex bg-purple-50">
       <Sidebar />
-      <div className="w-full flex flex-col items-center">
-        <div className="px-12 xl:px-24 py-8 w-full text-xl flex flex-col md:flex-row justify-between items-center">
+      <div className="flex flex-col w-full">
+        <div className="px-12 xl:px-32 py-8  text-xl flex flex-col md:flex-row justify-between items-center">
           <h1 className="font-bold text-md xl:text-3xl">My Applications</h1>
           <a href="/new-application">
             <Button btnText="Add New Application" />
           </a>
         </div>
-        <div className="w-full px-12 2xl:px-24 flex flex-col justify-center drop-shadow-xl items-center space-y-4">
-          <div className="w-full flex justify-start">
+        <div className="w-full px-12 2xl:px-32 flex flex-col justify-center drop-shadow-xl items-center space-y-4">
+          <div className="w-full flex justify-start items-center  space-x-2 sm:space-x-6">
             <input
-              className="mr-6 p-3 w-8/12 rounded-md border-[2px] border-solid border-primary"
+              className=" p-3 flex-1 rounded-md border-[2px] border-solid border-primary"
               placeholder="What are you looking for?"
               type="text"
               onChange={(e) => {
@@ -142,42 +139,40 @@ export const Applications = () => {
               }}
             />
             <button
-              className="w-48 p-3 rounded-md border-[2px] border-solid border-primary bg-primary text-white text-[0px] md:text-lg"
+              className="lg:w-64  max-w-[250px]  p-3 rounded-md border-[2px] border-solid border-primary bg-primary text-white text-[0px] sm:text-lg"
               onClick={onSearchClicked}
             >
               <SearchIcon />
               Search
             </button>
           </div>
-          <div className="w-full flex justify-start items-center space-x-3 ">
-            <div className="w-4/12">
+          <div className="w-full flex justify-start items-center space-x-2 sm:space-x-6 ">
+            <div className="flex-1">
               <Dropdown
                 options={StatusOptions}
                 OnSelectionChange={onStatusFilterChanged}
                 name="Status"
               />
             </div>
-            <div className="w-4/12">
+            <div className="flex-1">
               <Dropdown
                 OnSelectionChange={onDateFilterChanged}
                 options={DateOptions}
                 name="Date"
               />
             </div>
-            <div className="my-3 flex justify-center">
-              <button
-                className="w-48 flex p-3 pr-3 rounded-md border-[2px] border-solid border-primary bg-primary text-white justify-center text-[0px] md:text-lg"
-                onClick={onDeleteClicked}
-              >
-                <DeleteIcon />
-                Delete
-              </button>
-            </div>
+            <button
+              className="lg:w-64  max-w-[250px] flex-[0.75] p-3 rounded-md border-[2px] border-solid border-primary bg-primary text-white text-[0px] sm:text-lg"
+              onClick={onDeleteClicked}
+            >
+              <DeleteIcon />
+              Delete
+            </button>
           </div>
         </div>
 
-        <div className="p-8 px-12 2xl:px-24 w-full">
-          <Box sx={{ height: 500, width: "100%" }}>
+        <div className="p-8 2xl:px-24 w-full flex justify-center ">
+          <Box sx={{ height: 500, width: "70vw" }}>
             <DataGrid
               rows={displayData}
               columns={Columns}
